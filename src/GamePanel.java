@@ -33,8 +33,16 @@ public class GamePanel extends JPanel implements ActionListener {
         startGame();
     }
     public void startGame(){
+        x[0] = SCREEN_WIDTH/2;
+        y[0] = SCREEN_HEIGHT/2;
+
+        for(int i = 0; i < bodyParts; i++){
+            x[i] = x[0];
+            y[i] = y[0];
+        }
+
         newApple();
-        running = true;
+        running = false;
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -49,6 +57,28 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         startGame();
+    }
+
+    public void startScreen(Graphics g) {
+        // Draw the snake and apple even when paused
+        g.setColor(Color.red);
+        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+        for(int i = 0; i < bodyParts; i++) {
+            if (i == 0) {
+                g.setColor(Color.green);
+                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            } else {
+                g.setColor(new Color(50, 180, 0));
+                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            }
+        }
+
+        // Start message
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 30));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString("Press Arrow Key to Start", (SCREEN_WIDTH - metrics.stringWidth("Press Arrow Key to Start"))/2, SCREEN_HEIGHT/2);
     }
 
     public void paintComponent(Graphics g){
@@ -79,6 +109,8 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setFont(new Font("Ink Free", Font.BOLD, 35));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: " + applesEaten))/2, g.getFont().getSize());
+        } else if (applesEaten == 0){
+            startScreen(g);
         }else {
             gameOver(g);
         }
@@ -178,9 +210,29 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e){
 
+            if(!running && applesEaten == 0){
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT:
+                        direction = 'L';
+                        running = true;
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        direction = 'R';
+                        running = true;
+                        break;
+                    case KeyEvent.VK_UP:
+                        direction = 'U';
+                        running = true;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        direction = 'D';
+                        running = true;
+                        break;
+                }
+            }
+
             if(!running && e.getKeyCode() == KeyEvent.VK_SPACE){
                 restartGame();
-                return;
             }
 
             switch(e.getKeyCode()) {
