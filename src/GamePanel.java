@@ -38,6 +38,19 @@ public class GamePanel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
+    public void restartGame(){
+        bodyParts = 5;
+        applesEaten = 0;
+        direction = 'D';
+
+        for(int i = 0; i < GAME_UNITS; i++){
+            x[i] = 0;
+            y[i] = 0;
+        }
+
+        startGame();
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
@@ -58,11 +71,11 @@ public class GamePanel extends JPanel implements ActionListener {
                     g.setColor(Color.green);
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 } else {
-                    g.setColor(new Color(45, 180, 0));
+                    g.setColor(new Color(50, 180, 0));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
-            g.setColor(Color.red);
+            g.setColor(Color.cyan);
             g.setFont(new Font("Ink Free", Font.BOLD, 35));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: " + applesEaten))/2, g.getFont().getSize());
@@ -72,8 +85,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
     public void newApple(){
-        appleX = random.nextInt((int)SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;
-        appleY = random.nextInt((int)SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;
+        appleX = random.nextInt(SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;
+        appleY = random.nextInt(SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;
     }
     public void move(){
         for(int i = bodyParts; i > 0; i--){
@@ -116,7 +129,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if(x[0] < 0){
             running = false;
         }
-        //check if dead touches  right boarder
+        //check if head touches  right boarder
         if(x[0] > SCREEN_WIDTH){
             running = false;
         }
@@ -143,8 +156,12 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 35));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics2.stringWidth("Score: " + applesEaten))/2, g.getFont().getSize());
+        g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics2.stringWidth("Score: " + applesEaten))/2, 100);
 
+        g.setColor(Color.CYAN);
+        g.setFont(new Font("Ink Free", Font.BOLD, 25));
+        FontMetrics metrics3 = getFontMetrics(g.getFont());
+        g.drawString("Press SPACE to restart!", (SCREEN_WIDTH - metrics3.stringWidth("Press SPACE to restart!"))/2, SCREEN_HEIGHT/2 + 100);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -160,6 +177,12 @@ public class GamePanel extends JPanel implements ActionListener {
     public class MyKeyAdapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e){
+
+            if(!running && e.getKeyCode() == KeyEvent.VK_SPACE){
+                restartGame();
+                return;
+            }
+
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     if(direction != 'R'){
