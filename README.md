@@ -2,8 +2,7 @@
 
 ### (This was made using IntelliJ by JetBrain, other IDE's my require you to download an extention i.e VSCode)
 
-Here I created a simple 2d game of Snake, with no graphics just filling in pixels. This will be a teaching app where learners can clone down the repo and 
-You dont need to download any dependencies, as this game uses no external libraries. It is just built using the built in Java library, Java2D and Swing. 
+Here I created a simple 2d game of Snake, with no graphics just filling in pixels. This will be a teaching app where learners can clone down the repo and tinker around. Everything is labled in the methods! You'll be able to know what variable is what and see what changes when you run the game. You dont need to download any dependencies, as this game uses no external libraries. It is just built using the built in Java library, Java2D and Swing. 
 They game spans 3 files:
 
 <img width="301" alt="Screenshot 2025-06-30 at 12 53 27 PM" src="https://github.com/user-attachments/assets/73a64e1b-5594-4dc9-a011-9a3b860d2407" />
