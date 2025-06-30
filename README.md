@@ -1,6 +1,6 @@
 # Beginner Java Game
 
-###(This was made using IntelliJ by JetBrain, other IDE's my require you to download an extention i.e VSCode)
+### (This was made using IntelliJ by JetBrain, other IDE's my require you to download an extention i.e VSCode)
 
 Here I created a simple 2d game of Snake, with no graphics just filling in pixels. This will be a teaching app where learners can clone down the repo and 
 You dont need to download any dependencies, as this game uses no external libraries. It is just built using the built in Java library, Java2D and Swing. 
