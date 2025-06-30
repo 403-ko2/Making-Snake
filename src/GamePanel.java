@@ -210,6 +210,8 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e){
 
+//            if(!running && applesEaten == 0 &&)
+
             if(!running && applesEaten == 0){
                 switch(e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
